@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clonar el repositorio desde Git
+                // Clonar el repositorio dede Git
                 git branch: 'main', url: 'https://github.com/tu-repo/tu-proyecto.git'
             }
         }

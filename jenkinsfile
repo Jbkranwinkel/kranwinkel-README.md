@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clonar el repositorio desde Git
+                git branch: 'main', url: 'https://github.com/tu-repo/tu-proyecto.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // Instalar dependencias del proyecto
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Construir la aplicación
+                sh 'npm run build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Ejecutar pruebas
+                sh 'npm test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Desplegar la aplicación (ajusta este paso según tu entorno)
+                sh 'npm run deploy'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Limpieza después del pipeline
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline completado con éxito.'
+        }
+        failure {
+            echo 'El pipeline falló.'
+        }
+    }
+}
